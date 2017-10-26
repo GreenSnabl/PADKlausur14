@@ -2,13 +2,16 @@
 #define ROULETTE_H
 #include <string>
 #include <array>
+#include <sstream>
+
+using std::array; using std::string; using std::ostringstream;
 
 class Number {
 public:
-    Number(int);
+    Number(int val) : value{val} {}
     bool isEven();
     bool isLow();
-    std::string toString();    
+    string toString();    
 private:
     int value;    
 };
@@ -16,9 +19,21 @@ private:
 
 class Player {
 public:
-    Player(int, int);
+    Player(int ident, int budg) : id(ident), budget(budg) {}
     bool takeFromBudget(int);
     void addToBudget(int);
+    
+    char getBet(){return bet;}
+    void setBet(char);
+    
+    int getNumber(){return number;}
+    void setNumber(int);
+    
+    int getMoneyBet(){return moneyBet;}
+    void setMoneyBet(int);
+    
+    bool isPlaying(){return playing;}
+    void setPlaying(bool pl) {playing = pl;}
     
 private:    
     int id;
@@ -37,12 +52,12 @@ public:
     void makeBets();
     void play();
     void sort();
-    std::string showPlayers();
-    std::string showNumbers();
+    string showPlayers();
+    string showNumbers();
     
 private:
-    std::array<Player, nrP> players;
-    std::array<Number, nrN> roulette;
+    array<Player, nrP> players;
+    array<Number, nrN> roulette;
     
 };
 
