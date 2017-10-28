@@ -10,7 +10,7 @@ bool Number::isLow()
     return value < 19;
 }
 
-string Number::toString()
+std::string Number::toString()
 {
     ostringstream os;
     os << value;
@@ -36,10 +36,22 @@ void Player::addToBudget(int val)
 Roulette::Roulette(int budg)
 {
     for(int i = 0; i < nrP; ++i)
-        players[i] = Player(i, budg);
+        players.at(i) = Player(i+1, budg);
     for(int i = 0; i < nrN; ++i)
-        roulette[i] = Number(i);
+        roulette.at(i) = Number(i);
 }
+
+void Player::setBet(char c)
+{
+    if(bet == 'g' || bet == 'u' || bet == 'h' || bet == 't' || bet == 'z')
+    bet = c;
+}
+
+void Player::setNumber(Number n)
+{
+    number = n;
+}
+
 
 void Roulette::makeBets()
 {
@@ -58,8 +70,15 @@ void Roulette::makeBets()
                 players[i].setBet('z'); 
                 players[i].setNumber(Number(rand()%36 + 1));
             default: 
-                players[i].setPlaying(takeFromBudget(100));
+                players[i].setPlaying(players[i].takeFromBudget(100));
         }
     }
 }
 
+std::string Roulette::showPlayers() 
+{
+    std::ostringstream os;
+    for (int i = 0; i < nrP; ++i)
+        os << "player " << players[i].getId() << " || budget: " << players[i].getBudget() << "\n";
+    return os.str();
+}

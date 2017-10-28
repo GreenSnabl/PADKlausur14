@@ -8,10 +8,10 @@ using std::array; using std::string; using std::ostringstream;
 
 class Number {
 public:
-    Number(int val) : value{val} {}
+    Number(int val=0) : value{val} {}
     bool isEven();
     bool isLow();
-    string toString();    
+    std::string toString();    
 private:
     int value;    
 };
@@ -19,9 +19,12 @@ private:
 
 class Player {
 public:
-    Player(int ident, int budg) : id(ident), budget(budg), playing(true) {}
+    Player(int ident=0, int budg=0) : id{ident}, budget{budg}, playing{true}, bet{0}, number{Number(0)}, moneyBet{0} {}
     bool takeFromBudget(int);
     void addToBudget(int);
+    
+    int getId(){return id;}
+    int getBudget() {return budget;}
     
     char getBet(){return bet;}
     void setBet(char);
@@ -52,13 +55,12 @@ public:
     void makeBets();
     void play();
     void sort();
-    string showPlayers();
-    string showNumbers();
+    std::string showPlayers();
+    std::string showNumbers();
     
 private:
-    array<Player, nrP> players;
-    array<Number, nrN> roulette;
-    
+    std::array<Player, nrP> players;
+    std::array<Number, nrN> roulette;
 };
 
 
