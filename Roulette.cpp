@@ -47,11 +47,18 @@ void Roulette::makeBets()
     {
         switch(i)
         {
-            case 0: players[i].setBet('g');
-            case 1: players[i].setBet('t');
-            case 2: players[i].setBet('z'); players[i].setNumber(23);
-            case 3: players[i].setBet('z'); players[i].setNumber(rand()%36 + 1);
-            default: players[i].setPlaying(Player::takeFromBudget(100));
+            case 0: 
+                players[i].setBet('g');
+            case 1: 
+                players[i].setBet('t');
+            case 2: 
+                players[i].setBet('z'); 
+                players[i].setNumber(Number(23));
+            case 3: 
+                players[i].setBet('z'); 
+                players[i].setNumber(Number(rand()%36 + 1));
+            default: 
+                players[i].setPlaying(takeFromBudget(100));
         }
     }
 }

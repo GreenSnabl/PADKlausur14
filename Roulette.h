@@ -19,15 +19,15 @@ private:
 
 class Player {
 public:
-    Player(int ident, int budg) : id(ident), budget(budg) {}
+    Player(int ident, int budg) : id(ident), budget(budg), playing(true) {}
     bool takeFromBudget(int);
     void addToBudget(int);
     
     char getBet(){return bet;}
     void setBet(char);
     
-    int getNumber(){return number;}
-    void setNumber(int);
+    Number getNumber(){return number;}
+    void setNumber(Number);
     
     int getMoneyBet(){return moneyBet;}
     void setMoneyBet(int);
