@@ -3,6 +3,7 @@
 #include <string>
 #include <array>
 #include <sstream>
+#include <iostream>
 
 using std::array; using std::string; using std::ostringstream;
 
@@ -11,7 +12,9 @@ public:
     Number(int val=0) : value{val} {}
     bool isEven();
     bool isLow();
-    std::string toString();    
+    int getValue(){return value;}
+    std::string toString();
+    const bool operator==(const Number &n) {return n.value == this->value;}    
 private:
     int value;    
 };
@@ -33,7 +36,7 @@ public:
     void setNumber(Number);
     
     int getMoneyBet(){return moneyBet;}
-    void setMoneyBet(int);
+    void setMoneyBet(int val) {moneyBet = val;};
     
     bool isPlaying(){return playing;}
     void setPlaying(bool pl) {playing = pl;}

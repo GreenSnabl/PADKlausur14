@@ -24,7 +24,7 @@ std::string Number::toString()
 
 bool Player::takeFromBudget(int val)
 {
-    if (budget >= val) budget -= val;
+    if (budget >= val) {budget -= val; setMoneyBet(val);}
     return budget >= val;
 }
 
@@ -43,7 +43,6 @@ Roulette::Roulette(int budg)
 
 void Player::setBet(char c)
 {
-    if(bet == 'g' || bet == 'u' || bet == 'h' || bet == 't' || bet == 'z')
     bet = c;
 }
 
@@ -57,23 +56,48 @@ void Roulette::makeBets()
 {
     for(int i = 0; i < nrP; ++i)
     {
+    players[i].setPlaying(players[i].takeFromBudget(100));
+
         switch(i)
         {
-            case 0: 
-                players[i].setBet('g');
-            case 1: 
-                players[i].setBet('t');
-            case 2: 
-                players[i].setBet('z'); 
-                players[i].setNumber(Number(23));
-            case 3: 
-                players[i].setBet('z'); 
-                players[i].setNumber(Number(rand()%36 + 1));
-            default: 
-                players[i].setPlaying(players[i].takeFromBudget(100));
+            case 0: players[i].setBet('g'); break;
+            case 1: players[i].setBet('t'); break;
+            case 2: players[i].setBet('z'); 
+                    players[i].setNumber(Number(23));
+                    break;
+            case 3: players[i].setBet('z');
+                    players[i].setNumber(Number(rand()%36 + 1));
+                    break;
+
         }
     }
 }
+
+void Roulette::play()
+{
+    Number winningNumber = Number(rand() % 37);
+    std::cout << winningNumber.toString() << "\n";
+    for(int i = 0; i < nrP; ++i)
+    {
+        //std::cout << players[i].isPlaying() << "\n";
+        if (players[i].isPlaying()){
+            std::cout << players[i].getBet() << "\n";
+        switch (players[i].getBet())
+        {
+            case 'u': if(!winningNumber.isEven()) {players[i].addToBudget(players[i].getMoneyBet()*2);}; break;
+            case 'g': if(winningNumber.isEven()) {players[i].addToBudget(players[i].getMoneyBet()*2);}; break;
+            case 't': if(winningNumber.isLow()) {players[i].addToBudget(players[i].getMoneyBet()*2);}; break;
+            case 'h': if(!winningNumber.isLow()) {players[i].addToBudget(players[i].getMoneyBet()*2);}; break;
+            case 'z': if(winningNumber == players[i].getNumber()) {players[i].addToBudget(players[i].getMoneyBet()*36);}; break;
+        }
+        
+        }   
+    }
+    
+    
+    
+}
+
 
 std::string Roulette::showPlayers() 
 {
