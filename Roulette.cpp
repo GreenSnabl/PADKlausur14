@@ -2,7 +2,7 @@
 
 bool Number::isEven()
 {
-    return value % 2;
+    return !(value % 2);
 }
 
 bool Number::isLow()
@@ -15,8 +15,8 @@ std::string Number::toString()
     ostringstream os;
     os << value;
     if (value == 0) return os.str();
-    if(isEven()) os << " gerade "; 
-    else os << " ungerade ";
+    if(isEven()) os << "\tgerade\t\t"; 
+    else os << "\tungerade\t";
     if(isLow()) os << "tief";
     else os << "hoch";
     return os.str();
@@ -104,5 +104,14 @@ std::string Roulette::showPlayers()
     std::ostringstream os;
     for (int i = 0; i < nrP; ++i)
         os << "player " << players[i].getId() << " || budget: " << players[i].getBudget() << "\n";
+    return os.str();
+}
+
+std::string Roulette::showNumbers()
+{
+    std::ostringstream os;
+    for(int i = 0; i < nrN; ++i)
+        os << roulette[i].toString() << "\n";
+    os << "\n";
     return os.str();
 }

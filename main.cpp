@@ -4,8 +4,9 @@
 int main() {
     
     std::srand(time(0));
-    Roulette r1(1000);
-    for(int i = 0; i < 1000; ++i)
+    Roulette r1(100000000);
+    std::cout << r1.showNumbers();
+    for(int i = 0; i < 1000000; ++i)
     {
     r1.makeBets();
     std::cout << r1.showPlayers();
